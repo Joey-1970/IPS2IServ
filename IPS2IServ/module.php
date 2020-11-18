@@ -8,7 +8,9 @@ class IPS2IServ extends IPSModule
             	// Diese Zeile nicht löschen.
             	parent::Create();
 		$this->RegisterPropertyBoolean("Open", false);
-		
+	    	$this->RegisterPropertyString("User", "User");
+	    	$this->RegisterPropertyString("Password", "Passwort");
+		$this->RegisterPropertyString("Server", "https://mein-iserv.de");
 	
 	}
  	
@@ -22,6 +24,10 @@ class IPS2IServ extends IPSModule
 				
 		$arrayElements = array(); 		
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
+		$arrayElements[] = array("type" => "Label", "caption" => "IServ Zugriffsdaten");
+		$arrayElements[] = array("type" => "ValidationTextBox", "name" => "User", "caption" => "User");
+		$arrayElements[] = array("type" => "PasswordTextBox", "name" => "Password", "caption" => "Password");
+		$arrayElements[] = array("type" => "ValidationTextBox", "name" => "Server", "caption" => "Server");
 		$arrayElements[] = array("type" => "Label", "caption" => "_____________________________________________________________________________________________________");
             	
 		
@@ -42,6 +48,7 @@ class IPS2IServ extends IPSModule
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->Connect();
 			$this->SetStatus(102);
 		}
 		else {
@@ -62,9 +69,9 @@ class IPS2IServ extends IPSModule
 
 		//use Jumbojett\OpenIDConnectClient;
 
-		$server = 'https://mein-iserv.de';
-		$clientID = 'client id aus der Verwaltung';
-		$clientSecret = 'client secret aus der Verwaltung';
+		$server = $this->ReadPropertyString("Server"); //'https://mein-iserv.de';
+		$clientID = $this->ReadPropertyString("User"); //'client id aus der Verwaltung';
+		$clientSecret = $this->ReadPropertyString("Password"); //'client secret aus der Verwaltung';
 
 		$oidc = new OpenIDConnectClient($server, $clientID, $clientSecret);
 		$oidc->addScope('openid');
@@ -76,8 +83,9 @@ class IPS2IServ extends IPSModule
 		$name = $oidc->requestUserInfo('name');
 		$email = $oidc->requestUserInfo('email');
 		$info = $oidc->requestUserInfo(); // more info, such as groups according to OAuth scopes
-
-		printf("Hallo %s (%s)", $name, $email);
+		
+		$this->SendDebug("Connect", $name." ".$email, 0);
+		//printf("Hallo %s (%s)", $name, $email);
 	}
 	
 	
