@@ -1,0 +1,12 @@
+{
+  "id": "{45E4159B-9398-6C8A-D726-DAC876C2C900}",
+  "author": "Joachim Päper",
+  "name": "IPS2IServ",
+  "url": "www.ip-symcon.de",
+  "compatibility": {
+        "version": "5.1"
+  },
+  "version": "1.0",
+  "build": 0,
+  "date": 0
+}
