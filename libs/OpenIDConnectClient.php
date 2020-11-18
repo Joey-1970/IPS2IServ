@@ -31,7 +31,7 @@ namespace Jumbojett;
  * It can be downloaded from: http://phpseclib.sourceforge.net/
  */
 
-if (!class_exists('\phpseclib\Crypt\RSA') && !class_exists('Crypt_RSA')) {
+if (!class_exists('..\phpseclib\Crypt\RSA') && !class_exists('Crypt_RSA')) {
     user_error('Unable to find phpseclib Crypt/RSA.php.  Ensure phpseclib is installed and in include_path before you include this file');
 }
 
