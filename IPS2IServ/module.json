@@ -1,0 +1,15 @@
+{
+
+  "id": "{99A0DC81-8FA7-49A7-BD47-A3FA92AE356D}",
+  "name": "IPS2IServ",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2IServ"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "IPS2IServ"
+}
