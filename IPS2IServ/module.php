@@ -53,7 +53,32 @@ class IPS2IServ extends IPSModule
 	
 	
 	// Beginn der Funktionen
-	
+	private function Connect()
+	{
+		set_include_path(__DIR__.'/../libs');
+		require_once (__DIR__ . '/../libs/OpenIDConnectClient.php');
+		
+		//require "vendor/autoload.php";
+
+		//use Jumbojett\OpenIDConnectClient;
+
+		$server = 'https://mein-iserv.de';
+		$clientID = 'client id aus der Verwaltung';
+		$clientSecret = 'client secret aus der Verwaltung';
+
+		$oidc = new OpenIDConnectClient($server, $clientID, $clientSecret);
+		$oidc->addScope('openid');
+		$oidc->addScope('profile');
+		$oidc->addScope('email');
+
+		$oidc->authenticate();
+
+		$name = $oidc->requestUserInfo('name');
+		$email = $oidc->requestUserInfo('email');
+		$info = $oidc->requestUserInfo(); // more info, such as groups according to OAuth scopes
+
+		printf("Hallo %s (%s)", $name, $email);
+	}
 	
 	
 }
